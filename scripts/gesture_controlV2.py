@@ -5,8 +5,8 @@ import numpy as np
 import math
 
 #CONFIGURE
-ESP32_STREAM_URL = "http://192.168.79.163:81"
-ESP32_CMD_URL = "http://192.168.79.163/move?cmd="
+ESP32_STREAM_URL = "http://<esp-ip>:81"
+ESP32_CMD_URL = "http://<esp-ip>/move?cmd="
 
 #Setup
 mp_hands = mp.solutions.hands
