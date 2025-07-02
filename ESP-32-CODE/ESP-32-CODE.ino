@@ -3,20 +3,20 @@
 #include <WiFi.h>
 #include "esp_http_server.h"
 
-// ========== WiFi Credentials ==========
-const char* ssid = "Rish";
-const char* password = "rishuraj91134";
+//WiFi Credentials
+const char* ssid = "YOUR-WIFI-NAME";
+const char* password = "WIFI-PASSWORD";
 
-// ========== Motor Pins ==========
+//Motor Pins
 #define IN1 15
 #define IN2 14
 #define IN3 2
 #define IN4 4
 
-// ========== Built-in LED ==========
+//for built-in LED
 #define LED_PIN 33
 
-// ========== Camera Pins (AI Thinker) ==========
+//Camera Pins for AI thinker
 #define PWDN_GPIO_NUM     32
 #define RESET_GPIO_NUM    -1
 #define XCLK_GPIO_NUM      0
@@ -39,9 +39,9 @@ const char* password = "rishuraj91134";
 httpd_handle_t stream_httpd = NULL;
 WiFiServer commandServer(80);
 
-// ========== Motor Control ==========
+//Motor Control
 void setupMotors() {
-  ledcSetup(0, 1000, 8); // channel 0, 1kHz, 8-bit
+  ledcSetup(0, 1000, 8); 
   ledcSetup(1, 1000, 8);
   ledcSetup(2, 1000, 8);
   ledcSetup(3, 1000, 8);
@@ -83,7 +83,7 @@ void turnRight(uint8_t speed) {
   digitalWrite(LED_PIN, HIGH);
 }
 
-// ========== Camera Stream Handler ==========
+//Camera Stream Handler
 esp_err_t stream_handler(httpd_req_t *req) {
   camera_fb_t *fb = NULL;
   esp_err_t res = ESP_OK;
@@ -114,7 +114,7 @@ esp_err_t stream_handler(httpd_req_t *req) {
   return res;
 }
 
-// ========== Start Stream Server ==========
+//Start Stream Server
 void startCameraServer() {
   httpd_config_t config = HTTPD_DEFAULT_CONFIG();
   config.server_port = 81;
@@ -135,7 +135,7 @@ void startCameraServer() {
   }
 }
 
-// ========== Command Endpoint ==========
+//Command Endpoint
 void handleClientCommands() {
   WiFiClient client = commandServer.available();
   if (client && client.connected()) {
@@ -169,7 +169,7 @@ void handleClientCommands() {
   }
 }
 
-// ========== Setup ==========
+//Setup
 void setup() {
   Serial.begin(115200);
   pinMode(LED_PIN, OUTPUT);
@@ -221,7 +221,7 @@ void setup() {
   commandServer.begin(); // Movement control on port 80
 }
 
-// ========== Loop ==========
+//Loop to responds for comands repeatedly
 void loop() {
-  handleClientCommands(); // Respond to /move?cmd=X
+  handleClientCommands();
 }
