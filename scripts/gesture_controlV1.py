@@ -3,11 +3,11 @@ import mediapipe as mp
 import requests
 import numpy as np
 
-# === CONFIG ===
-ESP32_STREAM_URL = "http://192.168.250.163:81"
-ESP32_CMD_URL = "http://192.168.250.163/move?cmd="
+#CONFIGURE
+ESP32_STREAM_URL = "http://<esp-ip>:81"
+ESP32_CMD_URL = "http://<esp-ip>/move?cmd="
 
-# === Setup ===
+#Setup
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.7)
 mp_draw = mp.solutions.drawing_utils
@@ -54,7 +54,7 @@ def detect_direction_gesture(hand_landmarks):
     else:
         return "S"
 
-# === Camera Setup ===
+#Camera Setup
 cam_webcam = cv2.VideoCapture(0)
 cam_esp32 = cv2.VideoCapture(ESP32_STREAM_URL)
 
